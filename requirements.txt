@@ -1,7 +1,15 @@
-pyautogui>=0.9.54
-mss>=9.0.1
+# Core
 openai>=1.0.0
-python-dotenv>=1.0.0
+pyautogui>=0.9.54
+pyperclip>=1.8.2
 Pillow>=10.0.0
+python-dotenv>=1.0.0
 rich>=13.0.0
 click>=8.0.0
+
+# Similarity (pure numpy — no cv2 / skimage needed)
+numpy>=1.24.0
+
+# Phase 3 only — install when needed
+# ultralytics>=8.0.0
+# easyocr>=1.7.0
