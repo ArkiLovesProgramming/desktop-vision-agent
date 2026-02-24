@@ -37,6 +37,23 @@ Then enter instructions like:
 - "Search for Python tutorials on Google"
 - "Minimize all windows"
 
+## Demo
+
+### Basic Task: Open Calculator
+
+<!-- Replace with your video: <video src="path/to/calc.mp4" controls></video> -->
+![Open Calculator Demo](path/to/calc.gif)
+
+### Multi-step Task: Web Search
+
+<!-- Replace with your video: <video src="path/to/search.mp4" controls></video> -->
+![Web Search Demo](path/to/search.gif)
+
+### Advanced Task: Form Filling
+
+<!-- Replace with your video: <video src="path/to/form.mp4" controls></video> -->
+![Form Filling Demo](path/to/form.gif)
+
 ## Usage Examples
 
 ```python
