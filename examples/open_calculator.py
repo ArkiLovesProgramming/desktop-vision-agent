@@ -26,7 +26,7 @@ def main():
     agent = GUIAgent(config=config)
 
     # Task: Open Calculator
-    instruction = "打开 Windows 计算器应用程序"
+    instruction = "Open the Windows Calculator application"
 
     print(f"Task: {instruction}")
     print("-" * 40)

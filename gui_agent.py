@@ -291,7 +291,7 @@ class ScreenCapture:
             return 0.0
         return 1.0 - float(np.mean(np.abs(a - b)) / 255.0)
 
-    # ── Phase 2 新增：FOCUS 局部放大 ─────────────────────────────────────
+    # ── Phase 2 Addition: FOCUS local zoom ─────────────────────────────────────
 
     FOCUS_SIZE_PX: int = 400
 

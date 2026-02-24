@@ -26,7 +26,7 @@ def main():
     agent = GUIAgent(config=config)
 
     # Task: Minimize all windows
-    instruction = "最小化所有窗口，显示桌面"
+    instruction = "Minimize all windows and show the desktop"
 
     print(f"Task: {instruction}")
     print("-" * 40)

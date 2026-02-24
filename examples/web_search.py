@@ -26,7 +26,7 @@ def main():
     agent = GUIAgent(config=config)
 
     # Task: Search for Python tutorials
-    instruction = "打开浏览器，在 Google 上搜索'Python 教程'"
+    instruction = "Open browser and search for 'Python tutorials' on Google"
 
     print(f"Task: {instruction}")
     print("-" * 40)

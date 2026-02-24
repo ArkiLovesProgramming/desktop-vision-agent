@@ -48,7 +48,7 @@ Environment variables (`.env` file, copied from `.env.example`):
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `DASHSCOPE_API_KEY` | 阿里云 API Key (required) | - |
+| `DASHSCOPE_API_KEY` | Alibaba Cloud API Key (required) | - |
 | `BASE_URL` | API endpoint | `https://dashscope.aliyuncs.com/compatible-mode/v1` |
 | `MODEL_NAME` | Model to use | `qwen3-vl-plus` |
 | `MAX_ITERATIONS` | Max iterations per task | 50 |

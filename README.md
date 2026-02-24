@@ -5,20 +5,20 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-基于阿里云 Qwen-VL 多模态大模型的桌面自动化代理。通过视觉 - 语言模型实现"看 - 思考 - 行动"的智能交互循环。
+A desktop automation agent powered by Alibaba Cloud's Qwen-VL multimodal vision-language models. GUI Agent implements an intelligent "See-Think-Act" interaction loop to automate computer tasks through visual understanding and precise control.
 
-## 功能特点
+## Features
 
-- **视觉感知**: 通过屏幕截图"观察"当前电脑状态，支持 10x10 网格坐标定位
-- **智能决策**: 调用 Qwen-VL 模型进行推理和决策
-- **精准操作**: 通过 PyAutoGUI 实际操作鼠标和键盘
-- **ReAct 循环**: 持续执行"感知 - 思考 - 行动"循环直到任务完成
-- **相对坐标**: 使用 0.0-1.0 相对坐标，跨分辨率兼容
-- **多显示器支持**: 自动处理多屏幕偏移计算
-- **DPI 感知**: 正确处理逻辑分辨率与物理分辨率
-- **安全保护**: PyAutoGUI 故障安全机制，紧急情况下可快速停止
+- **Visual Perception**: "Sees" the current screen state through screenshots, supports 10x10 grid coordinate positioning
+- **Intelligent Decision Making**: Uses Qwen-VL model for reasoning and decision making
+- **Precise Control**: Operates mouse and keyboard through PyAutoGUI
+- **ReAct Loop**: Continuously executes "Perception-Thinking-Action" cycles until task completion
+- **Relative Coordinates**: Uses 0.0-1.0 relative coordinates for cross-resolution compatibility
+- **Multi-Monitor Support**: Automatically handles multi-screen offset calculations
+- **DPI Aware**: Correctly handles logical vs physical resolution
+- **Safety Mechanisms**: PyAutoGUI failsafe for emergency stop
 
-## 项目架构图
+## Architecture Overview
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
@@ -48,23 +48,23 @@
                           └──────────────────┘
 ```
 
-## 快速开始
+## Quick Start
 
-### 1. 安装依赖
+### 1. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. 配置环境变量
+### 2. Configure Environment
 
-复制 `.env.example` 为 `.env`，并填入你的配置：
+Copy `.env.example` to `.env` and add your configuration:
 
 ```bash
 cp .env.example .env
 ```
 
-编辑 `.env` 文件：
+Edit the `.env` file:
 
 ```ini
 DASHSCOPE_API_KEY=sk-your-api-key-here
@@ -72,249 +72,251 @@ BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1
 MODEL_NAME=qwen3-vl-plus
 ```
 
-**获取 API Key 的步骤：**
-1. 登录 [阿里云百炼控制台](https://bailian.console.aliyun.com/)
-2. 进入 API-KEY 管理
-3. 创建新的 API Key
+**How to Get API Key:**
+1. Log in to [Alibaba Cloud Bailian Console](https://bailian.console.aliyun.com/)
+2. Go to API-KEY Management
+3. Create a new API Key
 
-### 3. 运行 Agent
+### 3. Run the Agent
 
 ```bash
 python gui_agent.py
 ```
 
-然后根据提示输入任务指令，例如：
-- "打开记事本"
-- "在浏览器中搜索 Python"
-- "最小化所有窗口"
+Then enter your task instructions, such as:
+- "Open Notepad"
+- "Search for Python in the browser"
+- "Minimize all windows"
 
-## 使用示例
+## Usage Examples
 
-### 基础示例
-
-```python
-# 打开计算器
-"打开 Windows 计算器"
-
-# 网页搜索
-"在 Google 上搜索 Python 教程"
-
-# 文本输入
-"在记事本中输入'Hello, World!'"
-
-# 窗口操作
-"最小化所有窗口"
-```
-
-### 高级示例
+### Basic Examples
 
 ```python
-# 多步骤任务
-"打开浏览器，访问 GitHub，登录我的账户"
+# Open Calculator
+"Open Windows Calculator"
 
-# 文件操作
-"打开文件资源管理器，新建一个文件夹"
+# Web Search
+"Search for Python tutorials on Google"
 
-# 系统控制
-"调整系统音量到 50%"
+# Text Input
+"Type 'Hello, World!' in Notepad"
 
-# 表单填写
-"在表单中输入姓名、邮箱和消息，然后点击提交按钮"
+# Window Control
+"Minimize all windows"
 ```
 
-### 编程辅助示例
+### Advanced Examples
 
 ```python
-# 代码执行
-"打开 VS Code，创建一个新的 Python 文件"
+# Multi-step Tasks
+"Open browser, visit GitHub, and log into my account"
 
-# 调试辅助
-"运行当前 Python 脚本并查看输出"
+# File Operations
+"Open File Explorer and create a new folder"
+
+# System Control
+"Adjust system volume to 50%"
+
+# Form Filling
+"Enter name, email, and message in the form, then click submit"
 ```
 
-## 支持的动作类型
+### Programming Assistant Examples
 
-| 动作 | 说明 | 参数 | 示例 |
-|------|------|------|------|
-| `CLICK` | 点击指定坐标 | x, y (0.0-1.0 相对坐标) | `CLICK(0.5, 0.5)` - 点击屏幕中心 |
-| `TYPE` | 键盘输入文本 | text (要输入的字符串) | `TYPE("Hello World")` |
-| `SCROLL` | 滚动鼠标滚轮 | scroll_amount (负数向下，正数向上) | `SCROLL(-100)` - 向下滚动 |
-| `HOTKEY` | 键盘快捷键 | keys (快捷键组合) | `HOTKEY("ctrl+c")` - 复制 |
-| `DONE` | 任务完成 | 无 | `DONE` - 结束任务 |
+```python
+# Code Execution
+"Open VS Code and create a new Python file"
 
-## 配置选项
+# Debugging Assistance
+"Run the current Python script and view the output"
+```
 
-### 环境变量
+## Supported Actions
 
-| 环境变量 | 说明 | 默认值 | 必填 |
-|----------|------|--------|------|
-| `DASHSCOPE_API_KEY` | 阿里云 API Key | - | 是 |
-| `BASE_URL` | API 端点 | `https://dashscope.aliyuncs.com/compatible-mode/v1` | 否 |
-| `MODEL_NAME` | 模型名称 | `qwen3-vl-plus` | 否 |
+| Action | Description | Parameters | Example |
+|--------|-------------|------------|---------|
+| `CLICK` | Click at specified coordinates | x, y (0.0-1.0 relative) | `CLICK(0.5, 0.5)` - Click screen center |
+| `TYPE` | Type text via keyboard | text (string to input) | `TYPE("Hello World")` |
+| `SCROLL` | Scroll mouse wheel | scroll_amount (negative=down, positive=up) | `SCROLL(-100)` - Scroll down |
+| `HOTKEY` | Keyboard shortcuts | keys (shortcut combination) | `HOTKEY("ctrl+c")` - Copy |
+| `DONE` | Task completed | none | `DONE` - End task |
+
+## Configuration Options
+
+### Environment Variables
+
+| Variable | Description | Default | Required |
+|----------|-------------|---------|----------|
+| `DASHSCOPE_API_KEY` | Alibaba Cloud API Key | - | Yes |
+| `BASE_URL` | API endpoint | `https://dashscope.aliyuncs.com/compatible-mode/v1` | No |
+| `MODEL_NAME` | Model name | `qwen3-vl-plus` | No |
 | `MAX_ITERATIONS` | Maximum iterations per task | `50` | No |
-| `TEMPERATURE` | 模型温度 | `0.7` | 否 |
+| `TEMPERATURE` | Model temperature | `0.7` | No |
 
-### 可选模型
+### Available Models
 
-| 模型 | 特点 | 适用场景 |
-|------|------|----------|
-| `qwen3-vl-plus` | 平衡性能和成本 | 日常使用，推荐 |
-| `qwen3-vl-flash` | 快速响应 | 需要快速反馈的场景 |
-| `qwen-vl-max` | 最强性能 | 复杂任务，高精度要求 |
+| Model | Characteristics | Use Cases |
+|-------|-----------------|-----------|
+| `qwen3-vl-plus` | Balanced performance and cost | Daily use, recommended |
+| `qwen3-vl-flash` | Fast response | Scenarios requiring quick feedback |
+| `qwen-vl-max` | Highest performance | Complex tasks, high precision requirements |
 
-## 项目结构
+## Project Structure
 
 ```
 GUI-agent/
-├── gui_agent.py          # 主程序入口
-├── cli.py                # CLI 交互模块 (美化终端输出)
-├── config.py             # 配置管理模块
-├── requirements.txt      # Python 依赖
-├── LICENSE               # MIT 许可证
-├── CONTRIBUTING.md       # 贡献指南
-├── .env.example          # 配置模板
-├── .gitignore            # Git 忽略规则
+├── gui_agent.py          # Main program entry point
+├── main.py               # Multi-step planner + executor orchestration
+├── planner.py            # Task decomposition module
+├── cli.py                # CLI interaction module (beautiful terminal output)
+├── config.py             # Configuration management
+├── requirements.txt      # Python dependencies
+├── LICENSE               # MIT License
+├── CONTRIBUTING.md       # Contribution guidelines
+├── .env.example          # Configuration template
+├── .gitignore            # Git ignore rules
 ├── .github/
 │   ├── ISSUE_TEMPLATE/
 │   │   ├── bug_report.md
 │   │   └── feature_request.md
 │   └── pull_request_template.md
-├── examples/             # 示例脚本目录
-└── test-archive/         # 测试套件
+├── examples/             # Example scripts
+└── test-archive/         # Test suite
     ├── test_agent.py
     ├── test_coordinate.py
     ├── test_integration.py
     └── TEST_REPORT.md
 ```
 
-## 测试
+## Testing
 
-运行测试套件：
+Run the test suite:
 
 ```bash
 python -m pytest test-archive/
 ```
 
-查看测试报告：
+View test report:
 
 ```bash
 cat test-archive/TEST_REPORT.md
 ```
 
-### 测试结果
+### Test Results
 
-最近测试日期：2026-02-23
+Latest test date: 2026-02-23
 
-- 坐标变换测试：5/5 通过
-- 集成测试：4/4 通过
-- 优化功能测试：全部通过
+- Coordinate transformation tests: 5/5 passed
+- Integration tests: 4/4 passed
+- Optimization feature tests: All passed
 
-## 日志输出
+## Logging Output
 
-程序会输出详细的执行日志：
+The program outputs detailed execution logs:
 
 ```
-2026-02-23 10:00:00 - INFO - GUI Agent 启动
-2026-02-23 10:00:00 - INFO - 任务目标：打开记事本
-2026-02-23 10:00:01 - INFO - 正在截取屏幕...
-2026-02-23 10:00:01 - INFO - 屏幕分辨率：1920x1080
-2026-02-23 10:00:01 - INFO - 正在调用 Qwen-VL 模型...
-2026-02-23 10:00:05 - INFO - [思考] 我看到当前桌面，任务栏在底部。要打开记事本，需要点击开始菜单...
-2026-02-23 10:00:05 - INFO - [动作] CLICK
-2026-02-23 10:00:05 - INFO - 正在执行动作...
-2026-02-23 10:00:05 - INFO - 点击坐标：(100, 1050)
+2026-02-23 10:00:00 - INFO - GUI Agent starting
+2026-02-23 10:00:00 - INFO - Task objective: Open Notepad
+2026-02-23 10:00:01 - INFO - Capturing screen...
+2026-02-23 10:00:01 - INFO - Screen resolution: 1920x1080
+2026-02-23 10:00:01 - INFO - Calling Qwen-VL model...
+2026-02-23 10:00:05 - INFO - [Thinking] I see the current desktop with taskbar at the bottom. To open Notepad, need to click Start menu...
+2026-02-23 10:00:05 - INFO - [Action] CLICK
+2026-02-23 10:00:05 - INFO - Executing action...
+2026-02-23 10:00:05 - INFO - Click coordinates: (100, 1050)
 ```
 
-## 安全提示
+## Safety Notice
 
-**PyAutoGUI 内置 FailSafe 机制：** 将鼠标快速移到屏幕四个角落之一可以紧急停止程序。
+**PyAutoGUI Built-in FailSafe:** Move the mouse quickly to any of the four screen corners to emergency stop the program.
 
-> **重要提醒：**
-> - 始终监控 Agent 的操作
-> - 不要在敏感数据或关键系统上运行
-> - 先在安全环境中测试
-> - 随时准备按 Ctrl+C 中断
+> **Important Reminders:**
+> - Always monitor the Agent's operations
+> - Do not run on sensitive data or critical systems
+> - Test in a safe environment first
+> - Be ready to press Ctrl+C to interrupt
 
-## 限制与注意事项
+## Limitations and Considerations
 
-1. **坐标定位精度**: 模型基于视觉定位估算坐标，可能存在偏差
-2. **循环次数限制**: 默认最多 15 次迭代，防止失控
-3. **Base64 图像**: 使用 Data URI 格式发送图像，如遇到问题可考虑改用临时文件上传方式
-4. **语言支持**: 模型对中文和英文指令都支持良好
-5. **屏幕分辨率**: 支持多分辨率，使用相对坐标确保兼容性
+1. **Coordinate Positioning Accuracy**: Model estimates coordinates based on vision, may have deviations
+2. **Iteration Limit**: Default maximum 15 iterations to prevent runaway execution
+3. **Base64 Images**: Uses Data URI format for images; consider temporary file upload if issues occur
+4. **Language Support**: Model supports both Chinese and English instructions well
+5. **Screen Resolution**: Supports multiple resolutions using relative coordinates for compatibility
 
-## 故障排除
+## Troubleshooting
 
-### API 连接失败
-- 检查 `.env` 文件中的 API Key 是否正确
-- 确认网络连接正常
-- 检查阿里云账户余额
+### API Connection Failure
+- Check if API Key in `.env` file is correct
+- Verify network connection is working
+- Check Alibaba Cloud account balance
 
-### JSON 解析失败
-- 模型可能返回非标准 JSON 格式
-- 代码已内置多种解析策略，但极端情况仍可能失败
+### JSON Parsing Failure
+- Model may return non-standard JSON format
+- Code includes multiple parsing strategies, but extreme cases may still fail
 
-### 动作执行不准确
-- 在 Prompt 中已强调屏幕分辨率信息
-- 如问题持续，可尝试更详细的任务描述
+### Action Execution Inaccuracy
+- Prompt emphasizes screen resolution information
+- If issues persist, try more detailed task descriptions
 
-### 模型响应慢
-- 检查网络连接
-- 尝试使用 `qwen3-vl-flash` 模型获取更快响应
-- 降低截图质量配置
+### Slow Model Response
+- Check network connection
+- Try using `qwen3-vl-flash` model for faster response
+- Reduce screenshot quality configuration
 
-## 贡献
+## Contributing
 
-欢迎贡献！请查看 [CONTRIBUTING.md](CONTRIBUTING.md) 了解：
-- 代码规范
-- PR 流程
-- 测试要求
-- Issue 和 PR 模板
+Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for:
+- Code style guidelines
+- PR process
+- Testing requirements
+- Issue and PR templates
 
-### 贡献者
+### Contributors
 
 <!-- You can add contributors list here -->
 
-## 开发说明
+## Development Notes
 
-### 添加新动作类型
+### Adding New Action Types
 
-1. 在 `ActionType` 枚举中添加新类型
-2. 在 `ActionExecutor` 中添加对应的执行方法
-3. 更新 `SYSTEM_PROMPT` 说明新动作
+1. Add new type to `ActionType` enum
+2. Add corresponding execution method in `ActionExecutor`
+3. Update `SYSTEM_PROMPT` to document the new action
 
-### 修改 System Prompt
+### Modifying System Prompt
 
-`SYSTEM_PROMPT` 变量定义了模型的角色和输出格式要求，可根据实际需求调整。
+The `SYSTEM_PROMPT` variable defines the agent's role and output format requirements, and can be adjusted based on actual needs.
 
-### 配置开发环境
+### Setting Up Development Environment
 
 ```bash
-# 克隆仓库
+# Clone repository
 git clone https://github.com/YOUR_USERNAME/gui-agent.git
 cd gui-agent
 
-# 创建虚拟环境
+# Create virtual environment
 python -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate
 
-# 安装依赖
+# Install dependencies
 pip install -r requirements.txt
 
-# 运行测试
+# Run tests
 python -m pytest test-archive/
 ```
 
-## 相关链接
+## Related Links
 
-- [阿里云百炼控制台](https://bailian.console.aliyun.com/)
-- [Qwen-VL 文档](https://help.aliyun.com/zh/dashscope/)
-- [PyAutoGUI 文档](https://pyautogui.readthedocs.io/)
-- [GitHub 仓库](https://github.com/YOUR_USERNAME/gui-agent)
+- [Alibaba Cloud Bailian Console](https://bailian.console.aliyun.com/)
+- [Qwen-VL Documentation](https://help.aliyun.com/zh/dashscope/)
+- [PyAutoGUI Documentation](https://pyautogui.readthedocs.io/)
+- [GitHub Repository](https://github.com/YOUR_USERNAME/gui-agent)
 
-## 许可证
+## License
 
-MIT License - 详见 [LICENSE](LICENSE) 文件
+MIT License - See [LICENSE](LICENSE) file for details
 
 ---
 

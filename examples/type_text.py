@@ -29,7 +29,7 @@ def main():
     agent = GUIAgent(config=config)
 
     # Task: Type text
-    instruction = "在记事本中输入'Hello, World! 这是一个测试。'"
+    instruction = "Type 'Hello, World! This is a test.' in Notepad"
 
     print(f"Task: {instruction}")
     print("-" * 40)
