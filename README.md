@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A desktop automation agent powered by Alibaba Cloud's Qwen-VL vision-language models. Automates computer tasks through visual understanding and precise control.
+A desktop automation agent powered by multimodal vision-language models. Automates computer tasks through visual understanding and precise control.
 
 ## Quick Start
 
@@ -20,11 +20,24 @@ cp .env.example .env
 
 Edit `.env`:
 ```ini
-DASHSCOPE_API_KEY=sk-your-api-key-here
+DASHSCOPE_API_KEY=sk-your-api-key-here    # Alibaba Cloud DashScope
+BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1
 MODEL_NAME=qwen3-vl-plus
 ```
 
-Get API Key: [Alibaba Cloud Bailian Console](https://bailian.console.aliyun.com/)
+**Supported Models:** GUI Agent works with any vision-language model that follows the OpenAI API format.
+
+| Provider | Models |
+|----------|--------|
+| Alibaba Cloud (DashScope) | `qwen3-vl-plus` (recommended), `qwen3-vl-flash`, `qwen-vl-max` |
+| OpenAI | `gpt-4o`, `gpt-4o-mini` |
+| Google | `gemini-1.5-pro`, `gemini-1.5-flash` |
+| Others | Any model compatible with OpenAI API format |
+
+**Get API Keys:**
+- Alibaba Cloud: [Bailian Console](https://bailian.console.aliyun.com/)
+- OpenAI: [Platform Console](https://platform.openai.com/)
+- Google: [AI Studio](https://aistudio.google.com/)
 
 ### 3. Run
 
@@ -78,19 +91,19 @@ Then enter instructions like:
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `DASHSCOPE_API_KEY` | Alibaba Cloud API Key | - |
+| `DASHSCOPE_API_KEY` | API Key (DashScope/OpenAI/etc.) | - |
 | `BASE_URL` | API endpoint | `https://dashscope.aliyuncs.com/compatible-mode/v1` |
 | `MODEL_NAME` | Model to use | `qwen3-vl-plus` |
 | `MAX_ITERATIONS` | Max iterations per task | `50` |
 
-Models: `qwen3-vl-plus` (recommended), `qwen3-vl-flash` (fast), `qwen-vl-max` (premium)
+**Recommended Models:** `qwen3-vl-plus` (best for GUI tasks), `gpt-4o` (general purpose), `qwen3-vl-flash` (fast)
 
 ## Architecture
 
 ```
 ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
 │ Perception  │───▶│   Brain     │───▶│   Action    │
-│ ScreenCap   │    │ QwenClient  │    │ Executor    │
+│ ScreenCap   │    │  LLM Client │    │ Executor    │
 └─────────────┘    └─────────────┘    └─────────────┘
 ```
 
@@ -113,7 +126,7 @@ Files:
 
 **Inaccurate actions:** Use more detailed task descriptions.
 
-**Slow response:** Try `qwen3-vl-flash` model.
+**Slow response:** Try a faster model like `qwen3-vl-flash` or `gpt-4o-mini`.
 
 ## License
 
